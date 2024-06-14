@@ -30,17 +30,28 @@
   margin-top: 10px;
 }
 
+
 .categories {
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* Create a 2-column grid */
+  gap: 5px;
+  /* Space between items */
+  padding: 10px;
+  width: 100%;
+  max-width: 350px;
+  /* Adjust as needed */
 }
 
-.categories ul {
-  list-style-type: none;
-  padding: 0;
+.category-item {
+  font-size: 14px;
+  border: 1px solid transparent;
+  transition: border 0.3s ease;
+  text-align: left;
 }
 
-.categories li {
-  margin: 5px 0;
+.category-item.selected {
+  font-weight: bold;
 }
 
 .increase-amount-button {
@@ -60,7 +71,9 @@
 /* Mobile responsive styles */
 @media (max-width: 600px) {
   .circular-progress-container {
+    width: 100%;
     max-width: 150px;
+    /* Adjust as necessary */
   }
 
   .circular-progress-container .profile-image {
@@ -72,12 +85,10 @@
     font-size: 14px;
   }
 
-  .categories ul {
-    font-size: 14px;
-  }
-
   .categories li {
-    margin: 3px 0;
+    flex: 0 1 100%;
+    /* Ensure one item per line */
+    font-size: 14px;
   }
 
   .increase-amount-button {
