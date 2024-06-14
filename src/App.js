@@ -40,22 +40,11 @@ const App = () => {
     setSelectedSegmentAmount(segmentAmount);
   };
 
-  // Effect to handle click outside the progress bar to unselect the segment
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (appRef.current && !appRef.current.contains(event.target)) {
-        console.log('====================================');
-        console.log('Clicked outside');
-        console.log('====================================');
-        setSelectedSegment(null);
-      }
-    };
+  const handleDeselectSegment = () => {
+    setSelectedSegment(null);
+    setSelectedSegmentAmount(null);
+  };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   return (
     <div className="app" ref={appRef}>
@@ -68,6 +57,7 @@ const App = () => {
           selectedSegment={selectedSegment}
           segmentAmount={selectedSegmentAmount}
           setSelectedSegment={handleCategoryClick}
+          onDeselectSegment={handleDeselectSegment}
         />
         <div className="increase-amount">+ ${increasedAmount.toFixed(2)}</div>
       </div>

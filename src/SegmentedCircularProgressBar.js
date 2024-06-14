@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimation, selectedSegment, setSelectedSegment, segmentAmount }) => {
+const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimation, selectedSegment, setSelectedSegment, segmentAmount, onDeselectSegment }) => {
   const strokeWidth = 20;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -44,6 +44,18 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
       return () => clearInterval(interval);
     }
   }, [showAnimation, totalAmount, displayedAmount]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (event.target.closest('.circular-progress-container')) return;
+      onDeselectSegment();
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onDeselectSegment]);
 
   // Function to calculate segment paths
   const calculateSegmentPaths = () => {
