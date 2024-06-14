@@ -28,9 +28,6 @@ const App = () => {
   }, [showAnimation]);
 
   const handleShowAnimationClick = () => {
-    console.log('====================================');
-    console.log('Show Animation');
-    console.log('====================================');
     setSelectedSegment(null);
     setSelectedSegmentAmount(null);
     setShowAnimation(true);
@@ -70,7 +67,7 @@ const App = () => {
           showAnimation={showAnimation}
           selectedSegment={selectedSegment}
           segmentAmount={selectedSegmentAmount}
-          setSelectedSegment={setSelectedSegment}
+          setSelectedSegment={handleCategoryClick}
         />
         <div className="increase-amount">+ ${increasedAmount.toFixed(2)}</div>
       </div>
@@ -79,8 +76,7 @@ const App = () => {
           <div
             key={index}
             className={`category-item ${selectedSegment === index ? 'selected' : ''}`}
-            style={{ color: category.color, cursor: 'pointer' }}
-            onClick={() => handleCategoryClick(index)}
+            style={{ color: category.color }}
           >
             ● {category.name}
           </div>
