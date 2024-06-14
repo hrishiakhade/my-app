@@ -66,23 +66,21 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
           strokeWidth={selectedSegment === index ? strokeWidth + 4 : strokeWidth}
           strokeDasharray={dashArray}
           strokeDashoffset={strokeDashoffset}
-          onClick={() => handleSegmentClick(index)}
+          onClick={() => setSelectedSegment(index)}
           style={{
             cursor: 'pointer',
             transition: 'stroke-dashoffset 0.5s ease, stroke-width 0.5s ease',
+            pointerEvents: 'auto', // Ensure events can pass through the circle
           }}
         />
       );
     });
   };
 
-  // Handle segment click
-  const handleSegmentClick = (index) => {
-    setSelectedSegment(index);
-  };
+
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} pointerEvents={'none'}>
       {/* Render colored segmented circles */}
       {calculateSegmentPaths()}
 
@@ -93,10 +91,11 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
         r={radius}
         fill="none"
         stroke="#D3FFD7"
-        strokeWidth={strokeWidth}
+        strokeWidth={showAnimation ? strokeWidth + 1 : strokeWidth}
         opacity={fadeOpacity}
         style={{
           transition: 'opacity 0.5s ease',
+          pointerEvents: 'none', // Ensure this circle does not intercept events
         }}
       />
 
