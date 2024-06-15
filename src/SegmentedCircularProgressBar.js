@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import InfoIcon from './assets/infoIcon.png';
+import Popup from './components/Popup';
 
 const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimation, selectedSegment, setSelectedSegment, segmentAmount, onDeselectSegment }) => {
   const strokeWidth = 20;
@@ -8,6 +10,7 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
   const [fadeOpacity, setFadeOpacity] = useState(0);
   const [displayedAmount, setDisplayedAmount] = useState(totalAmount);
   const [textColor, setTextColor] = useState('#000');
+  const [showPopup, setShowPopup] = useState(false);
 
   // Effect to manage opacity transition for the top layer circle
   useEffect(() => {
@@ -92,57 +95,77 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
 
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} pointerEvents={'none'}>
-      {/* Render colored segmented circles */}
-      {calculateSegmentPaths()}
+    <>
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} pointerEvents={'none'}>
+        {/* Render colored segmented circles */}
+        {calculateSegmentPaths()}
 
-      {/* Render top layer circle for animation */}
-      <circle
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        fill="none"
-        stroke="#D3FFD7"
-        strokeWidth={showAnimation ? strokeWidth + 1 : strokeWidth}
-        opacity={fadeOpacity}
-        style={{
-          transition: 'opacity 0.5s ease',
-          pointerEvents: 'none', // Ensure this circle does not intercept events
-        }}
-      />
+        {/* Render top layer circle for animation */}
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke="#D3FFD7"
+          strokeWidth={showAnimation ? strokeWidth + 1 : strokeWidth}
+          opacity={fadeOpacity}
+          style={{
+            transition: 'opacity 0.5s ease',
+            pointerEvents: 'none', // Ensure this circle does not intercept events
+          }}
+        />
 
-      {/* Render text element showing total amount */}
-      <text
-        x="50%"
-        y="45%"
-        textAnchor="middle"
-        dy=".3em"
-        fontSize="30px"
-        fontWeight="600"
-        fill={textColor}
-      >
-        ${segmentAmount ? segmentAmount.toFixed(2) : displayedAmount.toFixed(2)}
-      </text>
+        {/* Render text element showing total amount */}
+        <text
+          x="50%"
+          y="45%"
+          textAnchor="middle"
+          dy=".3em"
+          fontSize="30px"
+          fontWeight="600"
+          fill={textColor}
+        >
+          ${segmentAmount ? segmentAmount.toFixed(2) : displayedAmount.toFixed(2)}
+        </text>
 
-      {/* Render text element showing "Lifetime cashback earned" */}
+        {/* Render text element showing "Lifetime cashback earned" */}
 
-      <text
-        x="50%"
-        y="55%"
-        textAnchor="middle"
-        dy=".3em"
-        fontSize="16px"
-        fill="#000"
-      >
-        {segmentAmount ?
-          <>
-            of{' '}
-            <tspan fontWeight="bold" fill="#3E3E3E">
-              ${displayedAmount.toFixed(2)}
-            </tspan>
-          </> : "Lifetime cashback earned"}
-      </text>
-    </svg>
+        <text
+          x="50%"
+          y="55%"
+          textAnchor="middle"
+          dy=".3em"
+          fontSize="16px"
+          fill="#000"
+        >
+          {segmentAmount ?
+            <>
+              of{' '}
+              <tspan fontWeight="bold" fill="#3E3E3E">
+                ${displayedAmount.toFixed(2)}
+              </tspan>
+            </> : "Lifetime cashback earned"}
+        </text>
+
+        <image
+          href={InfoIcon}
+          x="50%"
+          y="65%"
+          width="20"
+          height="20"
+          style={{ transform: 'translate(-10px, -10px)', cursor: 'pointer', pointerEvents: 'auto' }}
+          onClick={() => setShowPopup(true)}
+        />
+      </svg>
+      {showPopup && (
+        <Popup
+          title="About Cashback"
+          content="Your cashback has been successfully deposited into your default account."
+          subContent=" To make any changes, please adjust your settings in Mi Banco."
+          onClose={() => setShowPopup(false)}
+        />
+      )}
+    </>
   );
 };
 
