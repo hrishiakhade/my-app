@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css'; // Custom styles
 import SegmentedCircularProgressBar from './SegmentedCircularProgressBar';
+import CreditPopup from './components/creditPopup';
 
 const App = () => {
   const [amount, setAmount] = useState(380.99);
@@ -8,6 +9,7 @@ const App = () => {
   const [showAnimation, setShowAnimation] = useState(false);
   const [selectedSegment, setSelectedSegment] = useState(null);
   const [selectedSegmentAmount, setSelectedSegmentAmount] = useState(0);
+  const [showCreditPopup, setShowCreditPopup] = useState(false);
 
   const appRef = useRef(null);
 
@@ -22,16 +24,20 @@ const App = () => {
     if (showAnimation) {
       const timer = setTimeout(() => {
         setShowAnimation(false);
-      }, 2000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [showAnimation]);
 
   const handleShowAnimationClick = () => {
-    setSelectedSegment(null);
-    setSelectedSegmentAmount(null);
-    setShowAnimation(true);
-    setAmount(prevAmount => prevAmount + increasedAmount);
+    setShowCreditPopup(true);
+    setTimeout(() => {
+      setShowCreditPopup(false);
+      setSelectedSegment(null);
+      setSelectedSegmentAmount(null);
+      setShowAnimation(true);
+      setAmount(prevAmount => prevAmount + increasedAmount);
+    }, 1500);
   };
 
   const handleCategoryClick = (index) => {
@@ -56,10 +62,10 @@ const App = () => {
           showAnimation={showAnimation}
           selectedSegment={selectedSegment}
           segmentAmount={selectedSegmentAmount}
+          increasedAmount={increasedAmount.toFixed(2)}
           setSelectedSegment={handleCategoryClick}
           onDeselectSegment={handleDeselectSegment}
         />
-        <div className="increase-amount">+ ${increasedAmount.toFixed(2)}</div>
       </div>
       <div className="categories">
         {categories.map((category, index) => (
@@ -78,6 +84,12 @@ const App = () => {
       >
         Show Animation
       </button>
+
+      {showCreditPopup && (
+        <CreditPopup
+          amount={increasedAmount}
+        />
+      )}
     </div>
   );
 };

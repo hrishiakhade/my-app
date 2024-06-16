@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import InfoIcon from './assets/infoIcon.png';
+import './App.css'; // Custom styles
 import Popup from './components/Popup';
-import CreditPopup from './components/creditPopup';
 
-const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimation, selectedSegment, setSelectedSegment, segmentAmount, onDeselectSegment }) => {
+const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimation, increasedAmount, selectedSegment, setSelectedSegment, segmentAmount, onDeselectSegment }) => {
   const strokeWidth = 20;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -17,12 +17,26 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
   // Effect to manage opacity transition for the top layer circle
   useEffect(() => {
     if (showAnimation) {
-      setFadeOpacity(1);
-      setTextColor('#00AA11');
+
+      setShowCreditPopup(true);
+
       const timer = setTimeout(() => {
-        setFadeOpacity(0);
-        setTextColor('#000');
-      }, 2000);
+        setShowCreditPopup(false);
+
+        setFadeOpacity(1);
+        setTextColor('#00AA11');
+        const timer = setTimeout(() => {
+          setFadeOpacity(0);
+          setTextColor('#000');
+        }, 2000);
+
+        return () => clearTimeout(timer);
+
+
+      }, 1000);
+
+
+
       return () => clearTimeout(timer);
     }
   }, [showAnimation]);
@@ -132,45 +146,53 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
 
         {/* Render text element showing "Lifetime cashback earned" */}
 
-        <text
-          x="50%"
-          y="55%"
-          textAnchor="middle"
-          dy=".3em"
-          fontSize="16px"
-          fill="#000"
-        >
-          {segmentAmount ?
-            <>
-              of{' '}
-              <tspan fontWeight="bold" fill="#3E3E3E">
-                ${displayedAmount.toFixed(2)}
-              </tspan>
-            </> : "Lifetime cashback earned"}
-        </text>
+        {showCreditPopup ?
+          <text
+            x="50%"
+            y="60%"
+            textAnchor="middle"
+            dy=".3em"
+            fontSize="22px"
+            fontWeight={600}
+            fill="#00AA11"
+          >
+            <tspan fontWeight="400">+ </tspan>${increasedAmount}
+          </text> :
+          <text
+            x="50%"
+            y="60%"
+            textAnchor="middle"
+            dy=".3em"
+            fontSize="16px"
+            fill="#000"
+          >
+            {segmentAmount ?
+              <>
+                of{' '}
+                <tspan fontWeight="bold" fill="#3E3E3E">
+                  ${displayedAmount.toFixed(2)}
+                </tspan>
+              </> : "Lifetime cashback earned"}
+          </text>
+        }
 
         <image
           href={InfoIcon}
           x="50%"
-          y="65%"
+          y="75%"
           width="20"
           height="20"
           style={{ transform: 'translate(-10px, -10px)', cursor: 'pointer', pointerEvents: 'auto' }}
           onClick={() => setShowPopup(true)}
         />
       </svg>
+
       {showPopup && (
         <Popup
-          title="About Cashback"
-          content="Your cashback has been successfully deposited into your default account."
-          subContent=" To make any changes, please adjust your settings in Mi Banco."
+          title="Lifetime Cashback Earned"
+          content="This is the total amount of cashback you have earned over time."
+          subContent="This includes all cashback earned from all categories."
           onClose={() => setShowPopup(false)}
-        />
-      )}
-      {showCreditPopup && (
-        <CreditPopup
-          amount={50.99} // Example amount, you might want to set this dynamically
-          onClose={() => setShowCreditPopup(false)}
         />
       )}
     </>
