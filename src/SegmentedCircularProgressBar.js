@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import InfoIcon from './assets/infoIcon.png';
 import Popup from './components/Popup';
+import CreditPopup from './components/creditPopup';
 
 const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimation, selectedSegment, setSelectedSegment, segmentAmount, onDeselectSegment }) => {
   const strokeWidth = 20;
@@ -11,6 +12,7 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
   const [displayedAmount, setDisplayedAmount] = useState(totalAmount);
   const [textColor, setTextColor] = useState('#000');
   const [showPopup, setShowPopup] = useState(false);
+  const [showCreditPopup, setShowCreditPopup] = useState(false);
 
   // Effect to manage opacity transition for the top layer circle
   useEffect(() => {
@@ -163,6 +165,12 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
           content="Your cashback has been successfully deposited into your default account."
           subContent=" To make any changes, please adjust your settings in Mi Banco."
           onClose={() => setShowPopup(false)}
+        />
+      )}
+      {showCreditPopup && (
+        <CreditPopup
+          amount={50.99} // Example amount, you might want to set this dynamically
+          onClose={() => setShowCreditPopup(false)}
         />
       )}
     </>

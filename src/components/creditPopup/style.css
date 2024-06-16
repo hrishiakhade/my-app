@@ -1,0 +1,43 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .credit-popup-content {
+    background: #fff;
+    border-radius: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 60%;
+    max-width: 250pxs;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .credit-popup-icon {
+    width: 195px;
+    height: 146px;
+    margin-bottom: 15px;
+  }
+  
+  .credit-popup-amount {
+    font-size: 32px;
+    font-weight: 600;
+    color: #3E3E3E;
+    margin-bottom: 5px;
+  }
+  
+  .credit-popup-status {
+    font-size: 16px;
+    color: #3E3E3E;
+    font-weight: 400;
+  }
+  
