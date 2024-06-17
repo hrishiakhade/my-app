@@ -18,7 +18,7 @@ const CreditPopup = ({ amount, onClose }) => {
         <div className="popup-overlay">
             <div className="credit-popup-content">
                 <img src={CreditIcon} alt="Credit Icon" className="credit-popup-icon" />
-                <div className="credit-popup-amount">${amount.toFixed(2)}</div>
+                <div className="credit-popup-amount">${amount}</div>
                 <div className="credit-popup-status">Credited</div>
             </div>
         </div>

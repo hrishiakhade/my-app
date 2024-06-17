@@ -9,7 +9,6 @@ const App = () => {
   const [showAnimation, setShowAnimation] = useState(false);
   const [selectedSegment, setSelectedSegment] = useState(null);
   const [selectedSegmentAmount, setSelectedSegmentAmount] = useState(0);
-  const [showCreditPopup, setShowCreditPopup] = useState(false);
 
   const appRef = useRef(null);
 
@@ -30,14 +29,10 @@ const App = () => {
   }, [showAnimation]);
 
   const handleShowAnimationClick = () => {
-    setShowCreditPopup(true);
-    setTimeout(() => {
-      setShowCreditPopup(false);
-      setSelectedSegment(null);
-      setSelectedSegmentAmount(null);
-      setShowAnimation(true);
-      setAmount(prevAmount => prevAmount + increasedAmount);
-    }, 1500);
+    setSelectedSegment(null);
+    setSelectedSegmentAmount(null);
+    setShowAnimation(true);
+    setAmount(prevAmount => prevAmount + increasedAmount);
   };
 
   const handleCategoryClick = (index) => {
@@ -85,11 +80,6 @@ const App = () => {
         Show Animation
       </button>
 
-      {showCreditPopup && (
-        <CreditPopup
-          amount={increasedAmount}
-        />
-      )}
     </div>
   );
 };

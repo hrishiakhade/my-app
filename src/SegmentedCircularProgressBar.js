@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import InfoIcon from './assets/infoIcon.png';
 import './App.css'; // Custom styles
 import Popup from './components/Popup';
+import CreditPopup from './components/creditPopup';
 
 const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimation, increasedAmount, selectedSegment, setSelectedSegment, segmentAmount, onDeselectSegment }) => {
   const strokeWidth = 20;
@@ -43,7 +44,7 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
 
   // Effect to handle smooth amount change
   useEffect(() => {
-    if (showAnimation) {
+    if (showAnimation && !showCreditPopup) {
       const stepTime = 50;
       const steps = 20;
       const increment = (totalAmount - displayedAmount) / steps;
@@ -62,7 +63,7 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
 
       return () => clearInterval(interval);
     }
-  }, [showAnimation, totalAmount, displayedAmount]);
+  }, [showAnimation, totalAmount, displayedAmount, showCreditPopup]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -146,7 +147,7 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
 
         {/* Render text element showing "Lifetime cashback earned" */}
 
-        {showCreditPopup ?
+        {fadeOpacity && !showCreditPopup ?
           <text
             x="50%"
             y="60%"
@@ -195,6 +196,13 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
           onClose={() => setShowPopup(false)}
         />
       )}
+
+      {showCreditPopup && (
+        <CreditPopup
+          amount={increasedAmount}
+        />
+      )}
+
     </>
   );
 };
