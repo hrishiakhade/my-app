@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css'; // Custom styles
 import SegmentedCircularProgressBar from './SegmentedCircularProgressBar';
-import CreditPopup from './components/creditPopup';
 
 const App = () => {
   const [amount, setAmount] = useState(380.99);

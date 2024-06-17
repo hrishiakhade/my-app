@@ -197,11 +197,14 @@ const SegmentedCircularProgressBar = ({ size, segments, totalAmount, showAnimati
         />
       )}
 
-      {showCreditPopup && (
-        <CreditPopup
-          amount={increasedAmount}
-        />
-      )}
+
+      <CreditPopup
+        amount={increasedAmount}
+        showCreditPopup={showCreditPopup}
+        showAnimation={showAnimation}
+        onClose={() => setShowCreditPopup(false)}
+      />
+
 
     </>
   );
