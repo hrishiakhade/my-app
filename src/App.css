@@ -13,12 +13,8 @@
 .circular-progress-container {
   position: relative;
   width: 100%;
-  max-width: 200px;
-  height: auto;
-  align-self: center;
-  align-items: center;
-  justify-content: center;
-  margin-left: 10%;
+  max-width: 308px;
+  /* max-width: 100%; */
   /* margin: auto; */
 }
 
@@ -59,12 +55,30 @@
   background-color: #0056b3;
 }
 
+.circular-progress-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(234, 234, 234, 1);
+  background-color: #FFFFFF;
+}
+
 /* Mobile responsive styles */
 @media (max-width: 600px) {
   .circular-progress-container {
     width: 100%;
-    max-width: 150px;
+    max-width: 308px;
     /* Adjust as necessary */
+  }
+
+  .circular-progress-card {
+    padding: 10px;
+    border-radius: 14px;
+    box-shadow: 0 0 10px rgba(234, 234, 234, 1);
+    background-color: #FFFFFF;
   }
 
   .circular-progress-container .profile-image {

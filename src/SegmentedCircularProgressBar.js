@@ -126,87 +126,88 @@ const SegmentedCircularProgressBar = ({ size, totalAmount, showAnimation, increa
 
   return (
     <>
-      <div className="circular-progress-container">
-        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} pointerEvents={'none'}>
-          {/* Render colored segmented circles */}
-          {calculateSegmentPaths()}
+      <div className="circular-progress-card">
+        <div className="circular-progress-container">
+          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} pointerEvents={'none'}>
+            {/* Render colored segmented circles */}
+            {calculateSegmentPaths()}
 
-          {/* Render top layer circle for animation */}
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={radius}
-            fill="none"
-            stroke="#D3FFD7"
-            strokeWidth={showAnimation ? strokeWidth + 1 : strokeWidth}
-            opacity={fadeOpacity}
-            style={{
-              transition: 'opacity 0.5s ease',
-              pointerEvents: 'none', // Ensure this circle does not intercept events
-            }}
-          />
+            {/* Render top layer circle for animation */}
+            <circle
+              cx={size / 2}
+              cy={size / 2}
+              r={radius}
+              fill="none"
+              stroke="#D3FFD7"
+              strokeWidth={showAnimation ? strokeWidth + 1 : strokeWidth}
+              opacity={fadeOpacity}
+              style={{
+                transition: 'opacity 0.5s ease',
+                pointerEvents: 'none', // Ensure this circle does not intercept events
+              }}
+            />
 
-          {/* Render text element showing total amount */}
-          <text
-            x="50%"
-            y="45%"
-            textAnchor="middle"
-            dy=".3em"
-            fontSize="36px"
-            fontWeight="600"
-            fill={textColor}
-          >
-            ${selectedSegmentAmount ? selectedSegmentAmount.toFixed(2) : displayedAmount.toFixed(2)}
-          </text>
-
-          {/* Render text element showing "Lifetime cashback earned" */}
-
-          {fadeOpacity && !showCreditPopup ?
+            {/* Render text element showing total amount */}
             <text
               x="50%"
-              y="60%"
+              y="45%"
               textAnchor="middle"
               dy=".3em"
-              fontSize="22px"
-              fontWeight={600}
-              fill="#00AA11"
+              fontSize="36px"
+              fontWeight="600"
+              fill={textColor}
             >
-              <tspan fontWeight="400">+ </tspan>${increasedAmount}
-            </text> :
-            <text
-              x="50%"
-              y="60%"
-              textAnchor="middle"
-              dy=".3em"
-              fontSize="12px"
-              fontWeight={600}
-              fill="#000"
-            >
-              {selectedSegmentAmount ?
-                <>
-                  of{' '}
-                  <tspan fontWeight="bold" fill="#3E3E3E">
-                    ${displayedAmount.toFixed(2)}
-                  </tspan>
-                </> : "Lifetime cashback earned"}
+              ${selectedSegmentAmount ? selectedSegmentAmount.toFixed(2) : displayedAmount.toFixed(2)}
             </text>
-          }
 
-          <image
-            href={InfoIcon}
-            x="50%"
-            y="75%"
-            width="20"
-            height="20"
-            style={{ transform: 'translate(-10px, -10px)', cursor: 'pointer', pointerEvents: 'auto' }}
-            onClick={() => setShowPopup(true)}
-          />
-        </svg>
+            {/* Render text element showing "Lifetime cashback earned" */}
+
+            {fadeOpacity && !showCreditPopup ?
+              <text
+                x="50%"
+                y="60%"
+                textAnchor="middle"
+                dy=".3em"
+                fontSize="22px"
+                fontWeight={600}
+                fill="#00AA11"
+              >
+                <tspan fontWeight="400">+ </tspan>${increasedAmount}
+              </text> :
+              <text
+                x="50%"
+                y="60%"
+                textAnchor="middle"
+                dy=".3em"
+                fontSize="12px"
+                fontWeight={600}
+                fill="#000"
+              >
+                {selectedSegmentAmount ?
+                  <>
+                    of{' '}
+                    <tspan fontWeight="bold" fill="#3E3E3E">
+                      ${displayedAmount.toFixed(2)}
+                    </tspan>
+                  </> : "Lifetime cashback earned"}
+              </text>
+            }
+
+            <image
+              href={InfoIcon}
+              x="50%"
+              y="75%"
+              width="20"
+              height="20"
+              style={{ transform: 'translate(-10px, -10px)', cursor: 'pointer', pointerEvents: 'auto' }}
+              onClick={() => setShowPopup(true)}
+            />
+          </svg>
+        </div>
+        <CategoryGrouping
+          selectedSegment={selectedSegment}
+        />
       </div>
-
-      <CategoryGrouping
-        selectedSegment={selectedSegment}
-      />
 
       {showPopup && (
         <Popup
