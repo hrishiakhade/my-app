@@ -61,6 +61,7 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
+  padding-top: 1.2rem;
   border-radius: 16px;
   box-shadow: 0 0 10px rgba(234, 234, 234, 1);
   background-color: #FFFFFF;
@@ -79,6 +80,8 @@
     border-radius: 14px;
     box-shadow: 0 0 10px rgba(234, 234, 234, 1);
     background-color: #FFFFFF;
+    padding-top: 1.2rem;
+
   }
 
   .circular-progress-container .profile-image {
