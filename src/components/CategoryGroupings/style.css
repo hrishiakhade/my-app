@@ -1,0 +1,39 @@
+.categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* Create a 2-column grid */
+  gap: 5px;
+  /* Space between items */
+  padding: 10px;
+  width: 100%;
+  max-width: 350px;
+  /* Adjust as needed */
+}
+
+.category-item {
+  font-size: 14px;
+  border: 1px solid transparent;
+  transition: border 0.3s ease;
+  text-align: left;
+  color: #000000;
+  font-weight: 500;
+  display: flex;
+}
+
+.category-item.selected {
+  font-weight: bold;
+}
+
+.square-color-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.square-color-box.selected {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  margin-right: 8px;
+}
